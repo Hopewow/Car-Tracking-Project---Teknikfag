@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Teknikfag_Hjemmeside___Eksamens_Projekt.Models.CarModel>
+
+@{
+    ViewData["Title"] = "Car tracking";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberPlade)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                <p>Options:</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberPlade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "CarDetails", new { car=item.NumberPlade })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

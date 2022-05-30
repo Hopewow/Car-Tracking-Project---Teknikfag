@@ -1,0 +1,118 @@
+﻿@model Teknikfag_Hjemmeside___Eksamens_Projekt.Models.CarModel
+
+@{
+    ViewData["Title"] = "CarDetails";
+}
+
+<h1>CarDetails</h1>
+<hr />
+
+<div class="row">
+    <div class="col-7">
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.NumberPlade)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.NumberPlade)
+            </dd>
+        </dl>
+
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+        <link rel="stylesheet" type="text/css" href="./style.css" />
+        <script type="module" src="./index.js"></script>
+        <!--The div element for the map -->
+        <div id="map" style="width: 700px; height: 500px"></div>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqYroM_c1lL8VTNsEcmlzA1ieCFgJUe1c&callback=initMap&v=weekly"
+            defer
+        ></script>
+
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    <div class="col-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>LAT</th>
+                        <th>LON</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+            @foreach (var position in Model.Positions)
+            {             
+                <tr>
+                    <td>@position.LAT</td>
+                    <td>@position.LON</td>
+                    <td>@position.DateTime</td>
+                </tr>
+            }
+                </tbody>
+            </table>
+    </div>
+</div>
+ <script type="text/javascript">
+ // Initialize and add the map
+function initMap() {
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 3,
+    center: { lat: 55.403756, lng: 10.402370 },
+  });
+  const infoWindow = new google.maps.InfoWindow({
+    content: "",
+    disableAutoPan: true,
+  });
+  // Create an array of alphabetical characters used to label the markers.
+  const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  // Add some markers to the map.
+  const markers = locations.map((position, i) => {
+    const label = labels[i % labels.length];
+    const marker = new google.maps.Marker({
+      position,
+      label,
+    });
+
+    // markers can only be keyboard focusable when they have click listeners
+    // open info window when marker is clicked
+    marker.addListener("click", () => {
+      infoWindow.setContent(label);
+      infoWindow.open(map, marker);
+    });
+    return marker;
+  });
+
+  // Add a marker clusterer to manage the markers.
+  new MarkerClusterer({ markers, map });
+}
+
+const locations = [
+  { lat: -31.56391, lng: 147.154312 },
+  { lat: -33.718234, lng: 150.363181 },
+  { lat: -33.727111, lng: 150.371124 },
+  { lat: -33.848588, lng: 151.209834 },
+  { lat: -33.851702, lng: 151.216968 },
+  { lat: -34.671264, lng: 150.863657 },
+  { lat: -35.304724, lng: 148.662905 },
+  { lat: -36.817685, lng: 175.699196 },
+  { lat: -36.828611, lng: 175.790222 },
+  { lat: -37.75, lng: 145.116667 },
+  { lat: -37.759859, lng: 145.128708 },
+  { lat: -37.765015, lng: 145.133858 },
+  { lat: -37.770104, lng: 145.143299 },
+  { lat: -37.7737, lng: 145.145187 },
+  { lat: -37.774785, lng: 145.137978 },
+  { lat: -37.819616, lng: 144.968119 },
+  { lat: -38.330766, lng: 144.695692 },
+  { lat: -39.927193, lng: 175.053218 },
+  { lat: -41.330162, lng: 174.865694 },
+  { lat: -42.734358, lng: 147.439506 },
+  { lat: -42.734358, lng: 147.501315 },
+  { lat: -42.735258, lng: 147.438 },
+  { lat: -43.999792, lng: 170.463352 },
+];
+
+window.initMap = initMap;
+ </script>

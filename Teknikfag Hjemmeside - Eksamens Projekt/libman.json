@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "unpkg",
+      "library": "@googlemaps/markerclusterer@2.0.6",
+      "destination": "wwwroot/lib/googlemaps/markerclusterer/"
+    }
+  ]
+}
